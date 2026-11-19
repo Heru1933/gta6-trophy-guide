@@ -3,23 +3,122 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA VI trophy checklist</title>
-<link rel="stylesheet" href="style.css">
+<title>Leonida Platinum — GTA VI Trophy Guide &amp; Tracker</title>
+<meta name="description" content="The road to the GTA VI platinum: all 55 PS5 trophies with cited guides, a tracker, a roadmap and a missables watch list. Works offline.">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header>
-  <h1>GTA VI trophy checklist</h1>
-  <p id="progress">0 of 55 earned</p>
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">
+      <p class="kicker">Grand Theft Auto VI &middot; PlayStation 5</p>
+      <h1>Leonida Platinum</h1>
+      <p class="tagline">Every trophy, every step to the platinum — cited, tracked, spoiler-safe.</p>
+    </div>
+    <div class="progress-block" aria-label="Overall progress">
+      <p class="progress-count"><strong id="earned-count">0</strong> of <span id="total-count">55</span> earned</p>
+      <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="55" aria-valuenow="0" id="progress-bar"><span id="progress-fill"></span></div>
+      <p class="progress-note" id="progress-note">The platinum needs all 54 others — and 100% completion.</p>
+    </div>
+  </div>
+  <nav class="tabs" aria-label="Guide sections">
+    <a href="#/checklist" data-view="checklist">Checklist</a>
+    <a href="#/roadmap" data-view="roadmap">Roadmap</a>
+    <a href="#/missables" data-view="missables">Missables</a>
+    <a href="#/planner" data-view="planner">Planner</a>
+    <a href="#/settings" data-view="settings">Settings</a>
+  </nav>
 </header>
-<div class="controls">
-  <label>Grade <select id="grade"><option value="all">All</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select></label>
-  <button id="export" type="button">Export progress</button>
-  <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
-</div>
-<table>
-  <thead><tr><th>Earned</th><th>Trophy</th><th>Grade</th><th>How to get it</th></tr></thead>
-  <tbody id="rows"></tbody>
-</table>
-<script type="module" src="app.js"></script>
+
+<main id="main">
+  <section id="view-checklist" class="view" aria-label="Trophy checklist">
+    <div class="controls" role="search">
+      <label class="control-search">Search
+        <input id="search" type="search" placeholder="Search a trophy, mission or place…" autocomplete="off">
+      </label>
+      <label>Kind
+        <select id="kind-filter">
+          <option value="all">All kinds</option>
+          <option value="story">Story</option>
+          <option value="missable">Missable &amp; watch list</option>
+          <option value="collectibles">Collectibles</option>
+          <option value="activities">Activities</option>
+        </select>
+      </label>
+      <label>Grade
+        <select id="grade-filter">
+          <option value="all">All grades</option>
+          <option value="platinum">Platinum</option>
+          <option value="gold">Gold</option>
+          <option value="silver">Silver</option>
+          <option value="bronze">Bronze</option>
+        </select>
+      </label>
+      <label class="control-check"><input id="earned-filter" type="checkbox"> Unearned only</label>
+      <label class="control-check"><input id="spoiler-toggle" type="checkbox" checked> Hide story spoilers</label>
+    </div>
+    <p class="kind-counters" id="kind-counters"></p>
+    <div class="checklist-layout">
+      <ul class="trophy-list" id="trophy-list"></ul>
+      <aside class="detail" id="detail" aria-label="Trophy guide"></aside>
+    </div>
+  </section>
+
+  <section id="view-roadmap" class="view" hidden aria-label="Roadmap to the platinum">
+    <h2>The road to the platinum</h2>
+    <p class="lede">Six stages, in the order to play them. The platinum — <em>Vice Got a Price!</em> — pops only when the other 54 are earned, and the gold <em>A Long Road</em> needs 100% completion, so the story is the start, not the end.</p>
+    <ol class="roadmap" id="roadmap"></ol>
+    <p class="honesty-note">Built from the official trophy descriptions (Exophase / PSNProfiles). The game is a day old and no complete walkthrough exists yet: where a step is not verified in-game, the guides say so instead of inventing it.</p>
+  </section>
+
+  <section id="view-missables" class="view" hidden aria-label="Missable trophies">
+    <h2>Missables &amp; the watch list</h2>
+    <p class="lede">One trophy is reported as possibly missable. The rest below are one-shot moments worth doing carefully — none is confirmed missable, and every one can be retried in free roam as far as the official list shows.</p>
+    <div id="missable-list"></div>
+    <h3>Why only one confirmed missable?</h3>
+    <p>GTABase and PowerPyx both flag <em>Positive Mental Attitude</em> as the only trophy that might be missable, tied to a meditation session with Lucia in Chapter 1 — though neither confirms it is required. No other trophy on the official list has been flagged as missable by any source we checked. Story missions can be replayed, and the robbery and stunt trophies can be retried in free roam.</p>
+  </section>
+
+  <section id="view-planner" class="view" hidden aria-label="Next-up planner">
+    <h2>Next up</h2>
+    <p class="lede">Your next unearned trophies, in roadmap order. Tick them off in the checklist and this list moves on.</p>
+    <ol class="planner-list" id="planner-list"></ol>
+  </section>
+
+  <section id="view-settings" class="view" hidden aria-label="Settings">
+    <h2>Settings &amp; your progress</h2>
+    <div class="settings-grid">
+      <div class="settings-card">
+        <h3>Theme</h3>
+        <p><button id="theme-toggle" type="button">Switch to dark theme</button></p>
+        <p class="muted">Light and dark are both built in; your choice is saved in this browser.</p>
+      </div>
+      <div class="settings-card">
+        <h3>Spoilers</h3>
+        <p><label class="control-check"><input id="spoiler-toggle-settings" type="checkbox" checked> Hide story trophy names &amp; descriptions until earned</label></p>
+        <p class="muted">28 of the 55 trophies are hidden on PlayStation until earned. With this on, hidden trophies show as “Hidden trophy” until you tick them earned.</p>
+      </div>
+      <div class="settings-card">
+        <h3>Progress</h3>
+        <p><button id="export-btn" type="button">Export progress (.json)</button>
+        <label class="import-label">Import progress <input id="import-file" type="file" accept="application/json,.json"></label></p>
+        <p class="muted">Progress and your per-trophy notes live only in this browser (localStorage). Export backs them up; import restores them.</p>
+        <p><button id="reset-btn" type="button">Reset all progress</button></p>
+        <p class="status" id="settings-status" role="status"></p>
+      </div>
+      <div class="settings-card">
+        <h3>About this guide</h3>
+        <p>All 55 official PS5 trophies — 1 platinum, 2 gold, 6 silver, 46 bronze — with the names, descriptions and grades as PlayStation publishes them, and a guide in our own words for each, citing its sources. No Rockstar logo, artwork or game screenshots are used. The game released 19 November 2026; where a location or step is not yet verified in-game, the guide says so plainly.</p>
+        <p>Sources: <a href="https://exophase.com/game/grand-theft-auto-vi-psn/trophies/">Exophase — GTA VI trophy list</a> · <a href="https://psnprofiles.com/trophies/43531-grand-theft-auto-vi">PSNProfiles — GTA VI trophies</a> · <a href="https://www.ggrecon.com/articles/gta-6-trophies-achievements-list-platinum/">GGRecon — trophy list &amp; missable report</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Leonida Platinum — an unofficial fan guide. Grand Theft Auto and GTA are trademarks of Take-Two Interactive; this guide is not affiliated with Rockstar Games. Trophy names and descriptions are shown as PlayStation publishes them; all guide text is original. Works offline; no network requests.</p>
+</footer>
+
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
