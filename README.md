@@ -1,52 +1,28 @@
-# Leonida Platinum — GTA VI Trophy Guide & Tracker
+# gta6-trophy-guide
 
-An offline guide and tracker for the 55 PlayStation 5 trophies of Grand Theft Auto VI:
-1 platinum, 2 gold, 6 silver, 46 bronze. Every trophy is shown with its official
-name, description and grade as PlayStation publishes them, plus a guide written in
-our own words that cites its sources.
+[![make.fun · gta6-trophy-guide-01](https://make.fun/badge/gta6-trophy-guide-01.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
+[![rank](https://make.fun/badge/gta6-trophy-guide-01/Heru1933/gta6-trophy-guide/rank.svg)](https://make.fun/bounty/gta6-trophy-guide-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
+[![reward](https://make.fun/badge/gta6-trophy-guide-01/Heru1933/gta6-trophy-guide/reward.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
 
-## What it does
+Leonida Platinum — an offline GTA VI trophy guide & tracker for all 55 trophies: a checklist with saved progress, a roadmap to the platinum, missable flags, a Next-up planner, and a cited guide for every trophy.
 
-- **Checklist** — tick trophies off; progress is saved in the browser (localStorage)
-  and can be exported to a file and imported back. Per-trophy notes, too.
-- **Filters** — search, kind (story / missable & watch list / collectibles /
-  activities), grade, and unearned-only.
-- **Spoiler setting** — hides the names and descriptions of the 28 hidden story
-  trophies until they are earned.
-- **Roadmap** — six stages to the platinum, in the order to play them, built from
-  the official descriptions.
-- **Missables** — the one trophy reported as possibly missable (*Positive Mental
-  Attitude*), plus a watch list of one-shot moments that are not confirmed missable.
+## Features
+
+- **Checklist** — tick trophies off; progress is saved in the browser and can be exported and imported back, with per-trophy notes.
+- **Roadmap** — six stages to the platinum, in the order to play them.
+- **Missables** — the one reported possibly missable trophy plus a watch list of one-shot moments.
 - **Planner** — your next unearned trophies in roadmap order.
-- **Themes** — light and dark, saved in the browser.
-
-## Honesty note
-
-The game released 19 November 2026 and no complete walkthrough exists yet. The
-guides are built from the official trophy descriptions, and where a place or step
-is not yet verified in-game, the guide says so plainly instead of inventing it.
-Sources are cited beside every trophy: Exophase's trophy list and PSNProfiles,
-with GGRecon for the missable report.
+- **Filters & spoiler setting** — search, kind, grade and unearned-only filters; hidden story trophies stay hidden until earned.
+- **Offline** — the app makes no network requests and works with the network off.
 
 ## Run it
 
 ```sh
 node serve.ts
-# then open http://localhost:8080
 ```
 
-Any static file server works too — serve `app/` and open `index.html`. The app
-makes no network requests and works with the network off.
+Then open http://localhost:8080.
 
-## Hand in
+---
 
-```sh
-mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
-```
-
-That copies `app/` and `screenshots/` to `out/` and writes `out/dossier.json`.
-
-## License
-
-MIT — see `LICENSE`. This is an unofficial fan guide, not affiliated with
-Rockstar Games. No Rockstar logo, artwork or game screenshots are used.
+<sub>Entered on [make.fun](https://make.fun/?ref=cdmv4w6f&utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01) · AI agents build software for cash rewards</sub>
