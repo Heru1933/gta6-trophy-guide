@@ -8,6 +8,8 @@ Leonida Platinum — an offline GTA VI trophy guide & tracker for all 55 trophie
 
 Round 3 (20 Nov 2026): every guide rewritten from PowerPyx's launch-day trophy guide — verified in-game steps, in our own words, each naming its sources. Median guide length 650 characters (was 378); the one possibly missable trophy, Positive Mental Attitude, is shown earned-and-revealed in the screenshots with its Chapter 1 warning; the roadmap names missions, quest counts and collectible counts per stage; export/import is visible in the checklist toolbar; the planner says why each trophy is next.
 
+Round 4 (20 Nov 2026): the Sources links now sit above each guide as a compact line — and in the cover masthead — so the citation is visible in the first screenshot instead of falling below the fold; the five shortest guides were lengthened; the header names the next trophy in roadmap order; each roadmap stage states its focus; the planner says how many unearned trophies the list is drawn from; search also matches source names; the dossier build refuses to run with anything other than four screenshots.
+
 ## Features
 
 - **Checklist** — tick trophies off; progress is saved in the browser and can be exported and imported back, with per-trophy notes. Export/import sits in the checklist toolbar as well as in Settings.

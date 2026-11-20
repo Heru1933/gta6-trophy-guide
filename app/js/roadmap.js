@@ -2,7 +2,8 @@
 // Round 3: every stage blurb now names its missions, collectibles and counts
 // (from PowerPyx's walkthrough), and every row carries a short note saying
 // where its trophy fits — chapter, quest count, or what it unlocks.
-import { STAGE_NAMES, trophiesInRoadmapOrder } from './data.js';
+// Round 4: each stage also gets its one-line focus under the blurb.
+import { STAGE_NAMES, stageFocus, trophiesInRoadmapOrder } from './data.js';
 import { displayName } from './filters.js';
 
 // Where each trophy sits in the run: chapter and mission, quest count, or the
@@ -85,6 +86,9 @@ export function renderRoadmap(container, trophies, earnedIds, hideSpoilers) {
     const blurb = document.createElement('p');
     blurb.className = 'muted';
     blurb.textContent = stageBlurb(stage);
+    const focus = document.createElement('p');
+    focus.className = 'roadmap-focus';
+    focus.textContent = `Focus: ${stageFocus(stage)}`;
     const list = document.createElement('ul');
     for (const trophy of stageTrophies) {
       const row = document.createElement('li');
@@ -96,7 +100,7 @@ export function renderRoadmap(container, trophies, earnedIds, hideSpoilers) {
       row.append(document.createElement('br'), note);
       list.append(row);
     }
-    item.append(heading, blurb, list);
+    item.append(heading, blurb, focus, list);
     container.append(item);
   }
 }

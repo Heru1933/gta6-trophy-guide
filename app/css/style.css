@@ -66,13 +66,17 @@ button.secondary { background: var(--surface-soft); color: var(--ink); border: 1
 }
 html[data-theme="dark"] .alert-missable { background: #57200f; color: #ffc9b0; border-color: #ff7a54; }
 .roadmap-note { font-size: 0.82rem; color: var(--muted); }
+/* Round 4: one-line stage purpose under each roadmap blurb, and a plain
+   count line at the top of the planner list. */
+.roadmap-focus { font-size: 0.9rem; margin: 0.2rem 0 0; }
+.planner-summary { background: transparent !important; border: 0 !important; box-shadow: none !important; padding: 0 0.2rem !important; }
 .planner-why { font-size: 0.9rem; color: var(--ink); margin-top: 0.25rem; }
 .missable-note { max-width: 48rem; }
 .masthead { background: var(--surface); border-bottom: 3px solid var(--accent); }
 .masthead-inner {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 1.4rem 1rem 0.8rem;
+  padding: 1rem 1rem 0.7rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
@@ -80,8 +84,11 @@ html[data-theme="dark"] .alert-missable { background: #57200f; color: #ffc9b0; b
   align-items: flex-end;
 }
 .kicker { text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.75rem; color: var(--muted); margin: 0 0 0.3rem; }
-.brand h1 { font-size: 2.4rem; margin: 0; }
+.brand h1 { font-size: 2.2rem; margin: 0; }
 .tagline { margin: 0.3rem 0 0; color: var(--muted); max-width: 34rem; }
+/* Round 4: the sourcing credit lives on the cover, under the tagline, so
+   every screenshot shows the guides are grounded, not just the detail pane. */
+.sources-line { margin: 0.35rem 0 0; font-size: 0.85rem; color: var(--muted); max-width: 34rem; }
 .progress-block { min-width: 16rem; flex: 1; max-width: 26rem; }
 .progress-count { margin: 0 0 0.35rem; font-size: 1.05rem; }
 .progress-count strong { font-size: 1.6rem; }
@@ -156,13 +163,17 @@ html[data-theme="dark"] .flag.watch { background: #4d3d05; color: #ffe08a; }
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 1rem 1.1rem;
+  padding: 0.85rem 1rem;
   box-shadow: var(--shadow);
 }
 .detail h2 { margin: 0 0 0.2rem; font-size: 1.3rem; }
+/* Round 4: the sources strip sits above the guide as one compact linked
+   line, and the detail pane is tightened so the guide starts higher. */
+.sources-inline { font-size: 0.88rem; margin: 0.45rem 0 0.1rem; }
+.sources-inline strong { color: var(--muted); font-weight: 600; }
 .detail .official { background: var(--surface-soft); border-left: 4px solid var(--accent); padding: 0.4rem 0.7rem; border-radius: 0 8px 8px 0; }
 .detail .official p { margin: 0.15rem 0; }
-.detail h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0.7rem 0 0.2rem; }
+.detail h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0.55rem 0 0.15rem; }
 .detail p { margin: 0.3rem 0; }
 .sources { list-style: none; padding: 0; margin: 0.3rem 0; }
 .sources li { font-size: 0.9rem; margin: 0.25rem 0; }

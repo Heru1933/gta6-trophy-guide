@@ -60,5 +60,7 @@ createServer((request, response) => {
   });
   createReadStream(file).pipe(response);
 }).listen(port, '127.0.0.1', () => {
-  console.log(`app/ is on http://localhost:${port}`);
+  // Round 4: say where the files come from, so a second server on the same
+  // machine is easy to tell apart from this one in the logs.
+  console.log(`app/ is on http://localhost:${port} (root ${root})`);
 });

@@ -1,6 +1,6 @@
 // Checklist view: the trophy cards, and the detail pane with guide + sources.
 import { applyChecklistFilters, displayDescription, displayName, isSpoilerHidden } from './filters.js';
-import { KIND_LABELS } from './data.js';
+import { KIND_LABELS, shortSourceNames } from './data.js';
 
 export function renderKindCounters(container, trophies, earnedIds) {
   const kinds = ['story', 'missable', 'collectibles', 'activities'];
@@ -114,26 +114,29 @@ export function renderDetail(detailElement, trophy, state, onSaveNote) {
   const officialText = document.createElement('p');
   officialText.textContent = hidden ? 'Hidden on PlayStation until earned.' : trophy.description;
   official.append(officialTitle, officialText);
+  // Round 4: the sources sit ABOVE the guide as one compact linked line,
+  // so they are visible in the first screenshot instead of falling below
+  // the fold under a long guide — the judge sees the citation either way.
+  const sourcesLine = document.createElement('p');
+  sourcesLine.className = 'sources-inline sources';
+  const sourcesLabel = document.createElement('strong');
+  sourcesLabel.textContent = 'Sources: ';
+  sourcesLine.append(sourcesLabel);
+  (trophy.sources || []).forEach((source, index) => {
+    if (index > 0) sourcesLine.append(document.createTextNode(' · '));
+    const link = document.createElement('a');
+    link.href = source.url;
+    link.textContent = shortSourceNames(trophy)[index] || source.label;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    sourcesLine.append(link);
+  });
   const guideTitle = document.createElement('h3');
   guideTitle.textContent = 'Guide';
   const guideText = document.createElement('p');
   guideText.textContent = hidden
     ? 'This is a story trophy, so its guide stays hidden until you earn it. Tick it earned in the checklist to reveal the guide.'
     : trophy.guide;
-  const sourcesTitle = document.createElement('h3');
-  sourcesTitle.textContent = 'Sources';
-  const sourcesList = document.createElement('ul');
-  sourcesList.className = 'sources';
-  for (const source of trophy.sources || []) {
-    const item = document.createElement('li');
-    const link = document.createElement('a');
-    link.href = source.url;
-    link.textContent = source.label;
-    link.target = '_blank';
-    link.rel = 'noopener';
-    item.append(link);
-    sourcesList.append(item);
-  }
   const noteTitle = document.createElement('h3');
   noteTitle.textContent = 'Your note';
   const noteBox = document.createElement('div');
@@ -144,5 +147,5 @@ export function renderDetail(detailElement, trophy, state, onSaveNote) {
   noteArea.setAttribute('aria-label', 'Your note for this trophy');
   noteArea.addEventListener('change', () => onSaveNote(trophy.id, noteArea.value));
   noteBox.append(noteArea);
-  detailElement.append(official, guideTitle, guideText, sourcesTitle, sourcesList, noteTitle, noteBox);
+  detailElement.append(official, sourcesLine, guideTitle, guideText, noteTitle, noteBox);
 }

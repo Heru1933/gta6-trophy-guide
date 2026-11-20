@@ -54,9 +54,13 @@ export function exportProgressJson(progress) {
 export async function importProgressFile(file) {
   const text = await file.text();
   const parsed = JSON.parse(text);
-  const earned = Array.isArray(parsed.earned) ? parsed.earned : (Array.isArray(parsed) ? parsed : []);
+  // Round 4: also accept a wrapped export ({ progress: {...} }), so a file
+  // re-saved by another tool with the progress nested one level down still
+  // imports instead of silently restoring nothing.
+  const body = parsed.progress && typeof parsed.progress === 'object' ? parsed.progress : parsed;
+  const earned = Array.isArray(body.earned) ? body.earned : (Array.isArray(body) ? body : []);
   return {
     earned: earned.filter((id) => Number.isInteger(id)),
-    notes: parsed.notes && typeof parsed.notes === 'object' ? parsed.notes : {},
+    notes: body.notes && typeof body.notes === 'object' ? body.notes : {},
   };
 }

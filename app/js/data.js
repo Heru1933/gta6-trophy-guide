@@ -68,3 +68,10 @@ export function countByKind(trophies, earnedIds) {
   }
   return counts;
 }
+
+// Round 4: the short name of each source ("PowerPyx", "GTABase"), so the
+// detail pane and the missables view can show a compact one-line source
+// strip instead of repeating the full link labels everywhere.
+export function shortSourceNames(trophy) {
+  return (trophy.sources || []).map((source) => source.label.split(' — ')[0]);
+}

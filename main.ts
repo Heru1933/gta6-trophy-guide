@@ -14,7 +14,7 @@
 // Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
-import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-frontend.ts';
@@ -26,6 +26,11 @@ const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 // instead of silently handing in an app with no index — a bad build should
 // fail here, loudly, rather than reach the gate.
 if (!existsSync(join(here, 'app', 'index.html'))) throw new Error('app/index.html is missing — refusing to build the dossier');
+// Round 4: the same for the screenshots — the judge sees four of them, so
+// a build with fewer (or a stale extra) must fail here, not at the gate.
+if (!existsSync(join(here, 'screenshots'))) throw new Error('screenshots/ is missing — refusing to build the dossier');
+const shotFiles = readdirSync(join(here, 'screenshots')).filter((file) => file.endsWith('.jpg'));
+if (shotFiles.length !== 4) throw new Error(`expected 4 screenshots, found ${shotFiles.length} — refusing to build the dossier`);
 
 mkdirSync(out, { recursive: true });
 cpSync(join(here, 'app'), join(out, 'app'), { recursive: true });

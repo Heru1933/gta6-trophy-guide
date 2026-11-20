@@ -63,6 +63,13 @@ export function nextUnearnedTrophies(trophies, earnedIds, limit = 10) {
 export function renderPlanner(container, trophies, earnedIds, hideSpoilers) {
   const next = nextUnearnedTrophies(trophies, earnedIds, 10);
   container.replaceChildren();
+  // Round 4: a plain count line up top, so the planner says how much of the
+  // list you are seeing instead of leaving the 10-item cut unexplained.
+  const unearnedCount = trophies.filter((trophy) => !earnedIds.has(trophy.id)).length;
+  const summary = document.createElement('li');
+  summary.className = 'planner-summary muted';
+  summary.textContent = `Showing the next ${next.length} of ${unearnedCount} unearned — in roadmap order.`;
+  container.append(summary);
   if (next.length === 0) {
     const done = document.createElement('li');
     done.textContent = 'All 55 earned — the platinum is yours. Leonida Legend.';

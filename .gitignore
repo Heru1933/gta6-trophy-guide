@@ -3,3 +3,5 @@ node_modules/
 .DS_Store
 # Round 3: local verification outputs (dossier rebuilds, screenshot checks)
 *.local.json
+# Round 4: scratch originals kept beside a re-shot screenshot, never committed
+*.orig.jpg

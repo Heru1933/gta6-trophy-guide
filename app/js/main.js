@@ -6,6 +6,7 @@ import { renderChecklist, renderDetail, renderKindCounters } from './views.js';
 import { renderRoadmap } from './roadmap.js';
 import { renderMissables } from './missables.js';
 import { renderPlanner } from './planner.js';
+import { displayName } from './filters.js';
 
 const VIEWS = ['checklist', 'roadmap', 'missables', 'planner', 'settings'];
 
@@ -70,6 +71,12 @@ function renderAll() {
   const fill = document.getElementById('progress-fill');
   fill.style.width = `${(earnedIds.size / state.trophies.length) * 100}%`;
   document.getElementById('progress-bar').setAttribute('aria-valuenow', String(earnedIds.size));
+  // Round 4: the cover line under the progress bar names the next trophy in
+  // roadmap order, so the header reads as a plan instead of a bare count.
+  const next = trophiesInRoadmapOrder(state.trophies).find((trophy) => !earnedIds.has(trophy.id));
+  document.getElementById('progress-note').textContent = next
+    ? `Next up: ${displayName(next, state.hideSpoilers, earnedIds)} — Stage ${next.stage}. The platinum needs all 54 others, and 100% completion.`
+    : 'All 55 earned — the platinum is yours.';
   const viewState = { ...state, earnedIds, notes: state.progress.notes };
   renderKindCounters(document.getElementById('kind-counters'), state.trophies, earnedIds);
   renderChecklist(document.getElementById('trophy-list'), state.trophies, viewState, selectTrophy, toggleEarned);

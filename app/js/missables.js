@@ -5,6 +5,7 @@
 // visible here: it is shown earned, which is what reveals a hidden trophy
 // under the spoiler setting. The setting itself is never switched off.
 import { displayDescription, displayName, isSpoilerHidden } from './filters.js';
+import { shortSourceNames } from './data.js';
 
 export function renderMissables(container, trophies, state) {
   container.replaceChildren();
@@ -49,7 +50,7 @@ function missableSection(title, trophies, state, note) {
     sources.className = 'trophy-meta';
     sources.textContent = isSpoilerHidden(trophy, state.hideSpoilers, state.earnedIds)
       ? ''
-      : `Sources: ${(trophy.sources || []).map((source) => source.label.split(' — ')[0]).join(', ')}.`;
+      : `Sources: ${shortSourceNames(trophy).join(', ')}.`;
     body.append(name, desc, guide, sources);
     item.append(checkbox, body);
     list.append(item);
