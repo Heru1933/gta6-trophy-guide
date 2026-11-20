@@ -23,9 +23,11 @@ function getEarnedIds() {
 }
 
 function applyUrlOptions() {
-  // Demo controls for screenshots: ?seed=13 earns the first 13 trophies in roadmap
-  // order in this browser only; ?spoilers=off turns the spoiler setting off;
-  // ?open=<id> opens that trophy's guide. All of it is local demo state.
+  // Demo controls for screenshots: ?seed=20 earns the first 20 trophies in roadmap
+  // order in this browser only — exactly through Positive Mental Attitude, so the
+  // one possibly missable trophy shows earned and revealed; ?spoilers=off turns
+  // the spoiler setting off; ?open=<id> opens that trophy's guide. All of it is
+  // local demo state.
   const params = new URLSearchParams(location.search);
   if (params.get('spoilers') === 'off') {
     state.hideSpoilers = false;
@@ -133,6 +135,24 @@ function wireControls() {
   document.getElementById('export-btn').addEventListener('click', () => {
     exportProgressFile(state.progress);
     document.getElementById('settings-status').textContent = 'Progress exported.';
+  });
+  // Round 3: the same export/import, visible in the checklist toolbar so the
+  // cover screenshot shows the tracker can back up and restore its progress.
+  document.getElementById('export-btn-checklist').addEventListener('click', () => {
+    exportProgressFile(state.progress);
+    document.getElementById('checklist-status').textContent = 'Progress exported.';
+  });
+  document.getElementById('import-file-checklist').addEventListener('change', async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+    try {
+      state.progress = await importProgressFile(file);
+      saveProgress(state.progress);
+      document.getElementById('checklist-status').textContent = `Imported ${state.progress.earned.length} earned trophies.`;
+      renderAll();
+    } catch {
+      document.getElementById('checklist-status').textContent = 'That file could not be read as progress — export first, then import the same file.';
+    }
   });
   document.getElementById('import-file').addEventListener('change', async (event) => {
     const file = event.target.files[0];

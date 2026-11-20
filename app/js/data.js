@@ -15,6 +15,30 @@ export const KIND_LABELS = {
   activities: 'Activities',
 };
 
+// Round 3: what each stage is for, in one line, so the planner and the
+// roadmap can say why a trophy belongs where it does without repeating
+// the whole stage blurb.
+export const STAGE_FOCUS = {
+  1: 'Story first — nothing here can be missed except the Chapter 1 meditation.',
+  2: 'Side strands — quest givers return in free roam, so none of these lock out.',
+  3: 'Collectibles — sweep region by region once the map is open.',
+  4: 'Activities — most land on their own while you do everything else.',
+  5: 'Money and mayhem — robberies, vaults and the one-shot moments.',
+  6: 'Cleanup — 100% completion, then the platinum pops on its own.',
+};
+
+export function stageFocus(stage) {
+  return STAGE_FOCUS[stage] || '';
+}
+
+export function trophiesByStage(trophies) {
+  const byStage = {};
+  for (const trophy of trophiesInRoadmapOrder(trophies)) {
+    (byStage[trophy.stage] || (byStage[trophy.stage] = [])).push(trophy);
+  }
+  return byStage;
+}
+
 let cachedTrophies = null;
 
 export async function loadTrophies() {

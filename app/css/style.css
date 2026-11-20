@@ -50,6 +50,24 @@ button {
   cursor: pointer;
 }
 button.secondary { background: var(--surface-soft); color: var(--ink); border: 1px solid var(--line); }
+/* Round 3: export/import in the checklist toolbar, the missable warning in
+   the detail pane, the per-row order note on the roadmap, and the per-item
+   reason in the planner. */
+.toolbar-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.toolbar-actions .status { font-size: 0.85rem; }
+.alert-missable {
+  background: #fbe3da;
+  border: 1px solid #d94f30;
+  border-left: 4px solid #d94f30;
+  border-radius: 8px;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.93rem;
+  color: #6d1f0c;
+}
+html[data-theme="dark"] .alert-missable { background: #57200f; color: #ffc9b0; border-color: #ff7a54; }
+.roadmap-note { font-size: 0.82rem; color: var(--muted); }
+.planner-why { font-size: 0.9rem; color: var(--ink); margin-top: 0.25rem; }
+.missable-note { max-width: 48rem; }
 .masthead { background: var(--surface); border-bottom: 3px solid var(--accent); }
 .masthead-inner {
   max-width: 1180px;

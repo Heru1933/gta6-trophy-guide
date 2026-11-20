@@ -95,6 +95,18 @@ export function renderDetail(detailElement, trophy, state, onSaveNote) {
   const grade = document.createElement('p');
   grade.className = 'muted';
   grade.textContent = `${trophy.grade[0].toUpperCase()}${trophy.grade.slice(1)} · ${KIND_LABELS[trophy.kind]} · Stage ${trophy.stage}${trophy.missable ? ' · Missable' : ''}${trophy.watch ? ' · Watch list' : ''}`;
+  if (trophy.missable && !hidden) {
+    // Round 3: the one possibly missable trophy gets a warning box of its own in
+    // the detail pane, so a reader opening it cannot miss the Chapter 1 step.
+    // It stays hidden with the rest of the trophy while the spoiler setting
+    // hides it, so the warning never leaks a hidden trophy.
+    const alert = document.createElement('p');
+    alert.className = 'alert-missable';
+    alert.textContent = 'Possibly missable — do the Chapter 1 balcony meditation with Lucia before the chapter ends (PowerPyx, GTABase).';
+    detailElement.append(heading, grade, alert);
+  } else {
+    detailElement.append(heading, grade);
+  }
   const official = document.createElement('div');
   official.className = 'official';
   const officialTitle = document.createElement('h3');
@@ -132,5 +144,5 @@ export function renderDetail(detailElement, trophy, state, onSaveNote) {
   noteArea.setAttribute('aria-label', 'Your note for this trophy');
   noteArea.addEventListener('change', () => onSaveNote(trophy.id, noteArea.value));
   noteBox.append(noteArea);
-  detailElement.append(heading, grade, official, guideTitle, guideText, sourcesTitle, sourcesList, noteTitle, noteBox);
+  detailElement.append(official, guideTitle, guideText, sourcesTitle, sourcesList, noteTitle, noteBox);
 }

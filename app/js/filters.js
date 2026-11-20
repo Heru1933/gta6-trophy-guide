@@ -1,8 +1,11 @@
 // Search, kind, grade and spoiler filtering for the checklist.
+import { KIND_LABELS } from './data.js';
 export function trophyMatchesSearch(trophy, query) {
   if (!query) return true;
   const needle = query.trim().toLowerCase();
-  const haystack = [trophy.name, trophy.description, trophy.guide].join(' ').toLowerCase();
+  // Round 3: search also matches the kind label and the stage, so a query
+  // like "collectibles" or "stage 3" finds the right trophies too.
+  const haystack = [trophy.name, trophy.description, trophy.guide, KIND_LABELS[trophy.kind], `stage ${trophy.stage}`].join(' ').toLowerCase();
   return haystack.includes(needle);
 }
 

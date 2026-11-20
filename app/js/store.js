@@ -35,13 +35,20 @@ export function saveSettings(settings) {
 }
 
 export function exportProgressFile(progress) {
-  const blob = new Blob([JSON.stringify(progress, null, 2)], { type: 'application/json' });
+  const blob = new Blob([exportProgressJson(progress)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
   link.download = 'leonida-platinum-progress.json';
   link.click();
   URL.revokeObjectURL(url);
+}
+
+// Round 3: the export as a plain string, so the file writer above and any
+// future backup view share one serialization — and so the exported file is
+// exactly the progress the app holds, notes included.
+export function exportProgressJson(progress) {
+  return JSON.stringify(progress, null, 2);
 }
 
 export async function importProgressFile(file) {

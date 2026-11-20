@@ -22,6 +22,11 @@ import { buildDossier } from './vendor/makefun-frontend.ts';
 const here = fileURLToPath(new URL('.', import.meta.url));
 const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
+// Round 3: refuse to build a dossier from a tree that lost its entry page,
+// instead of silently handing in an app with no index — a bad build should
+// fail here, loudly, rather than reach the gate.
+if (!existsSync(join(here, 'app', 'index.html'))) throw new Error('app/index.html is missing — refusing to build the dossier');
+
 mkdirSync(out, { recursive: true });
 cpSync(join(here, 'app'), join(out, 'app'), { recursive: true });
 mkdirSync(join(out, 'screenshots'), { recursive: true });

@@ -1,3 +1,5 @@
 out/
 node_modules/
 .DS_Store
+# Round 3: local verification outputs (dossier rebuilds, screenshot checks)
+*.local.json
